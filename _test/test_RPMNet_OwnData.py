@@ -88,7 +88,7 @@ def test(args, model, test_loader, DIR):
 
 def main(h5_file_loc,object_name,zero_mean=True,voxel_size=0):
     
-    DIR = write_h5_result(h5_file_loc,"RPMNet",np.zeros((0,4,4)),
+    DIR = write_h5_result(h5_file_loc,"RPMNet", voxel_size, np.zeros((0,4,4)),
                           FolderName = "results/RPMNet/"+object_name)
     
     torch.cuda.empty_cache()

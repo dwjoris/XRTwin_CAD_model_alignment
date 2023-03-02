@@ -149,7 +149,7 @@ def test_one_epoch(test_loader, icp, DIR):
 def main(h5_file_loc, object_name, refine = True, voxel_size=0.01,zero_mean=True):
     
     # Create file for saving results
-    DIR = write_h5_result(h5_file_loc,"ICP",np.zeros((0,4,4)),FolderName = "results/ICP/"+object_name)
+    DIR = write_h5_result(h5_file_loc,"ICP", voxel_size, np.zeros((0,4,4)),FolderName = "results/ICP/"+object_name)
     
     # Create dataset from given location with chosen parameters
     dataset = dataset_loader(h5_file_loc,zero_mean=zero_mean, normals=False,Test=refine)

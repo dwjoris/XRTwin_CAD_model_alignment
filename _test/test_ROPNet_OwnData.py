@@ -160,7 +160,7 @@ def evaluate_ROPNet(args, test_loader, DIR):
 
 def main(h5_file_loc, object_name, zero_mean = True, voxel_size = 0, p_keep = [1, 1]):
     
-    DIR = write_h5_result(h5_file_loc,"ROPNet",np.zeros((0,4,4)),
+    DIR = write_h5_result(h5_file_loc,"ROPNet", voxel_size, np.zeros((0,4,4)),
                           FolderName = "results/ROPNet/"+object_name)
     
     seed = 222

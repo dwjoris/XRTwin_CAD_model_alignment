@@ -119,10 +119,11 @@ def test_one_epoch(testloader,goicp,rNode,tNode,DIR):
     
     return total_time/count
 
-def main(h5_file_loc,object_name,MSEThresh=0.00001,trimFraction=0.0001,zero_mean=False):
+def main(h5_file_loc,object_name,MSEThresh=0.00001,trimFraction=0.0001,zero_mean=False, voxel_size=0):
     
     # Create file for saving results
-    DIR = write_h5_result(h5_file_loc,"GO-ICP",np.zeros((0,4,4)),FolderName = "results/GO-ICP/"+object_name)
+    DIR = write_h5_result(h5_file_loc,"GO-ICP", voxel_size, 
+                          np.zeros((0,4,4)),FolderName = "results/GO-ICP/"+object_name)
     
     goicp = GoICP();     # Create GoICP class
     rNode = ROTNODE();   # Create translation nodes
@@ -146,7 +147,7 @@ def main(h5_file_loc,object_name,MSEThresh=0.00001,trimFraction=0.0001,zero_mean
         goicp.doTrim = False;
     
     # Create dataset from given location with chosen parameters
-    dataset = dataset_loader(h5_file_loc,zero_mean=zero_mean,normals=False)
+    dataset = dataset_loader(h5_file_loc,zero_mean=zero_mean,normals=False, voxel_size = voxel_size)
     test_loader = DataLoader(dataset, batch_size=1, shuffle=False)
     
     # Execute registration

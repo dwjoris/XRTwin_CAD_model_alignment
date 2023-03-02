@@ -115,7 +115,7 @@ def test_one_epoch(device, model, test_loader,DIR,algo):
             
             "--------------------displaying results--------------------"
             # start = time.time()
-            display_open3d(template.detach().cpu().numpy()[0], source.detach().cpu().numpy()[0], output['transformed_source'].detach().cpu().numpy()[0])
+            # display_open3d(template.detach().cpu().numpy()[0], source.detach().cpu().numpy()[0], output['transformed_source'].detach().cpu().numpy()[0])
             # print(":: Presenting data took %.3f sec.\n" % (time.time() - start))
             count = count + 1
             
