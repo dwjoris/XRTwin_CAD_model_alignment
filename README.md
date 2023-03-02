@@ -12,6 +12,15 @@ This repository is part of a project on XR environments. The goal is to compare 
 
 The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 dataset.
 
+# Current Progress (Update 02/03/2023)
+- [x] Installation of considered registration methods
+- [x] Creation of code infrastructure to test & train methods
+- [x] Creation of real-world scans for Cranfield benchmark dataset with D435i camera
+- [ ] Creation of real-world scans for ModelNet40 dataset with D435i camera
+- [ ] Training of considered methods with various training sets
+- [ ] Testing of learning-based methods
+- [ ] Testing of non-learning-based methods
+
 # Acknowledgements
 Special thanks go to the authors of the available code for the used registration methods and learning3d repository.
 - [Learning3d by vinit5](https://github.com/vinits5/learning3d#use-your-own-data) (RPMNet, PointNetLK, PRNet)
