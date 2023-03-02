@@ -1,0 +1,352 @@
+=============================================================================================================
+|																		|
+|								BASE-TOP PLATE								|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+    add_symm.main(file_loc,180,"z")
+
+
+Base-Top_Plate_1
+
+	Plane_Normal_Vector = [ 0.0038, 0.6526, 0.7577] # First estimate of rotation around X-axis
+	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+	Y_angle = 90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+	translation_correction = [0.005,0.008,-0.02]
+	mul = 2
+
+Base-Top_Plate_2
+
+	Plane_Normal_Vector = [ 0.0038, 0.6526, 0.7577] # First estimate of rotation around X-axis
+	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+	Y_angle = 2 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+	translation_correction = [0,0.015,-0.025]
+	mul = 2
+
+Base-Top_Plate_3
+
+	Plane_Normal_Vector = [ 0.0038, 0.6526, 0.7577] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -45 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.010,-0.020]
+    	mul = 2
+
+Base-Top_Plate_4
+
+	Plane_Normal_Vector = [ 0.0081, 0.6635, 0.7482] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.010,-0.020]
+    	mul = 2
+
+Base-Top_Plate_5
+
+	Plane_Normal_Vector = [ 0.0069, 0.6650, 0.7468] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -88 # rortation around Y-axis (degrees)
+    	Z_angle = 0 
+    	translation_correction = [-0.005,0.005,-0.015]
+    	mul = 2
+
+=============================================================================================================
+|																		|
+|								PENDULUM									|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+    add_symm.main(file_loc,180,"x")
+
+
+Pendulum_1
+
+	Plane_Normal_Vector = [ 0.0058, 0.6525, 0.7577] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 180 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0.007,0,-0.01]
+    	mul = 2
+
+Pendulum_2
+
+	Plane_Normal_Vector = [ 0.0058, 0.6525, 0.7577] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.015,-0.025]
+    	mul = 2
+
+Pendulum_3
+
+	Plane_Normal_Vector = [ 0.0035, 0.6523, 0.7580] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 137 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [-0.01,0.01,-0.02]
+    	mul = 2
+
+Pendulum_4
+
+ 	Plane_Normal_Vector = [ 0.0074, 0.6649, 0.7469] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 180 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.001,-0.012]
+    	mul = 2
+
+Pendulum_5
+
+	Plane_Normal_Vector = [ 0.0074, 0.6649, 0.7469] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.015,-0.023]
+    	mul = 2
+
+Pendulum_6
+
+	Plane_Normal_Vector = [ 0.0074, 0.6649, 0.7469] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -45 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [-0.005,0.005,-0.015]
+    	mul = 2
+
+=============================================================================================================
+|																		|
+|								ROUND-PEG									|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+	add_symm.main(file_loc,90,"y")
+      add_symm.main(file_loc,-90,"y")
+      add_symm.main(file_loc,180,"y")
+      add_symm.main(file_loc,180,"x")
+      add_symm.main(file_loc,180,"x",90,"y")
+      add_symm.main(file_loc,180,"x",-90,"y")
+      add_symm.main(file_loc,180,"x",180,"y")
+
+
+Round-Peg_1
+
+	Plane_Normal_Vector = [ 0.0144, 0.6537, 0.7566] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,-0.002,-0.018]
+    	mul = 2
+
+Round-Peg_2
+
+	Plane_Normal_Vector = [ 0, 1, 0] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees)
+    	Z_angle = 90 
+    	translation_correction = [0,0,-0.012]
+    	mul = 2
+
+Round-Peg_3
+
+	Plane_Normal_Vector = [ 0, 1, 0] # First estimate of rotation around X-axis
+    	X_angle_correction = -(90-49.203) # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.015]
+    	mul = 2
+
+=============================================================================================================
+|																		|
+|								SEPARATOR									|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+    add_symm.main(file_loc,180,"x")
+
+Separator_1
+
+	Plane_Normal_Vector = [ 0.0045, 0.6529, 0.7574] # First estimate of rotation around X-axis
+    	X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.01]
+    	mul = 2
+
+Separator_2
+
+	Plane_Normal_Vector = [ 0.0043, 0.6529, 0.7574] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 92 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.002,-0.010]
+    	mul = 2
+
+Separator_3
+
+	Plane_Normal_Vector = [ 0.0043, 0.6529, 0.7574] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 45 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [-0.004,0.002,-0.013]
+    	mul = 2
+
+Separator_4
+
+	Plane_Normal_Vector = [ 0.0043, 0.6529, 0.7574] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 135 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0.005,0.004,-0.015]
+    	mul = 2
+
+Separator_5
+	
+	Plane_Normal_Vector = [ 0.0043, 0.6529, 0.7574] # First estimate of rotation around X-axis
+    	X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+   	translation_correction = [0,-0.002,-0.010]
+    	mul = 2
+
+Separator_6
+
+	Plane_Normal_Vector = [ 0.0072, 0.6652, 0.7466] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.010]
+    	mul = 2
+
+Separator_7
+
+	Plane_Normal_Vector = [ 0.0072, 0.6652, 0.7466] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 180 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [-0.002,0.005,-0.015]
+    	mul = 2
+
+Separator_8
+
+	Plane_Normal_Vector = [ 0.0072, 0.6652, 0.7466] # First estimate of rotation around X-axis
+    	X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = -90 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [-0.002,0,-0.010]
+    	mul = 2
+
+=============================================================================================================
+|																		|
+|								SHAFT-NEW									|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+    add_symm.main(file_loc,90,"y")
+    add_symm.main(file_loc,-90,"y")
+    add_symm.main(file_loc,180,"y")
+    add_symm.main(file_loc,180,"x")
+    add_symm.main(file_loc,180,"x",90,"y")
+    add_symm.main(file_loc,180,"x",-90,"y")
+    add_symm.main(file_loc,180,"x",180,"y")
+
+
+Shaft_New_1
+
+	Plane_Normal_Vector = [ 0.0062, 0.6524, 0.7578] # First estimate of rotation around X-axis
+    	X_angle_correction = -3 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.002,-0.020]
+    	mul = 2
+
+Shaft_New_2
+
+	Plane_Normal_Vector = [ 0.0062, 0.6524, 0.7578] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 50 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.020]
+    	mul = 2
+
+Shaft_New_3
+
+	Plane_Normal_Vector = [ 0.0062, 0.6524, 0.7578] # First estimate of rotation around X-axis
+    	X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.020]
+    	mul = 2
+
+Shaft_New_4
+
+	Plane_Normal_Vector = [ 0.0059, 0.6524, 0.7579] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 90
+    	translation_correction = [0,0.002,-0.017]
+    	mul = 2
+
+=============================================================================================================
+|																		|
+|								SQUARE-PEG									|
+|																		|
+=============================================================================================================
+
+Symmetrical Solutions: 
+
+    add_symm.main(file_loc,90,"y")
+    add_symm.main(file_loc,-90,"y")
+    add_symm.main(file_loc,180,"y")
+    add_symm.main(file_loc,180,"x")
+    add_symm.main(file_loc,180,"x",90,"y")
+    add_symm.main(file_loc,180,"x",-90,"y")
+    add_symm.main(file_loc,180,"x",180,"y")
+
+
+Square-Peg_1
+
+	Plane_Normal_Vector = [ 0.0060, 0.6524, 0.7579] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+   	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.017]
+    	mul = 2
+
+Square-Peg_2
+
+	Plane_Normal_Vector = [ 0.0060, 0.6524, 0.7579] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 90
+    	translation_correction = [0,0,-0.012]
+    	mul = 2
+
+Square_Peg_3
+
+	Plane_Normal_Vector = [ 0.0060, 0.6524, 0.7579] # First estimate of rotation around X-axis
+    	X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 0 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0.002,-0.017]
+    	mul = 2
+
+Square_Peg_4
+
+	Plane_Normal_Vector = [ 0.0060, 0.6524, 0.7579] # First estimate of rotation around X-axis
+    	X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    	Y_angle = 49 # rortation around Y-axis (degrees) 
+    	Z_angle = 0
+    	translation_correction = [0,0,-0.018]
+    	mul = 2
