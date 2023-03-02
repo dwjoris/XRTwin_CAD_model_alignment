@@ -1,4 +1,4 @@
-# XRTwin_CAD_model_alignment
+# XRTwin CAD model alignment
 
 This repository is part of a project on XR environments. The goal is to compare different point cloud registration methods, when applied to real-world scans obtained using a RealSense depth camera. The codes are written specifically to make the comparison efficiently. The following functionalities are implemented:
 - Process point cloud (.ply) files, obtained from a RealSense camera into a text file (.txt).
