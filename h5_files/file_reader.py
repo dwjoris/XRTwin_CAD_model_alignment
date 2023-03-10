@@ -114,25 +114,6 @@ def h5reader(file_dict,key):
             raise Exception("Key not included in %s" % f.keys())
     return dataset
 
-def h5file_to_torch(file_loc):
-    # Turn basic h5 file into tensors
-    templ_array = h5reader(file_loc,'template')
-    src_array = h5reader(file_loc,'source')
-    gt_array = h5reader(file_loc,'transformation')
-    
-    gt_symm_array = h5reader(file_loc,'transformation_all')
-    
-    templ_tensor = torch.tensor(templ_array)
-    src_tensor = torch.tensor(src_array)
-    gt_tensor = torch.tensor(gt_array)
-    gt_symm_tensor = torch.tensor(gt_symm_array)
-    
-    # print(templ_tensor.shape)
-    # print(src_tensor.shape)
-    # print(gt_tensor.shape)
-    
-    return templ_tensor, src_tensor, gt_tensor, gt_symm_tensor
-
 def txt_to_array(filename):
     #Link: https://stackoverflow.com/questions/14676265/how-to-read-a-text-file-into-a-list-or-an-array-with-python
     list_of_lists = []
@@ -146,6 +127,39 @@ def txt_to_array(filename):
 
     array = np.array(list_of_lists)
     return array
+
+"""
+=============================================================================
+-----------------------------dataloader import-------------------------------
+=============================================================================
+"""
+
+from misc import dataloader
+
+def h5file_to_torch(file_loc, zero_mean, T_est = False):
+    # Turn basic h5 file into tensors
+    
+    dataset = dataloader.dataset_loader(file_loc, zero_mean, Test = T_est)
+    templ_array = dataset.template
+    src_array = dataset.source
+    gt_array = dataset.transformation
+    gt_symm_array = dataset.transformation_all
+    
+    templ_tensor = torch.tensor(templ_array)
+    src_tensor = torch.tensor(src_array)
+    gt_tensor = torch.tensor(gt_array)
+    gt_symm_tensor = torch.tensor(gt_symm_array)
+    
+    if(T_est):
+        transfo_array = dataset.estimated_transform
+        transfo_tensor = torch.tensor(transfo_array,dtype=torch.float64)
+        return templ_tensor, src_tensor, gt_tensor, gt_symm_tensor, transfo_tensor
+    
+    # print(templ_tensor.shape)
+    # print(src_tensor.shape)
+    # print(gt_tensor.shape)
+    
+    return templ_tensor, src_tensor, gt_tensor, gt_symm_tensor
 
 """
 =============================================================================

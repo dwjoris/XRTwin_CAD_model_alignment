@@ -55,10 +55,22 @@ BASE_DIR = os.getcwd() #Parent folder -> Thesis
 # CAD_name = "Shaft_New"
 # CAD_name = "Square-Peg"
 
+
+def downsample_pcd(pcd_array,voxel_size):
+    # Turn point cloud array into point cloud
+    pcd = o3d.geometry.PointCloud()
+    pcd.points = o3d.utility.Vector3dVector(pcd_array)
+    
+    # Downsample with given voxelsize
+    pcd_down = pcd.voxel_down_sample(voxel_size)
+    pcd_down_array =  np.asarray(pcd_down.points)
+    
+    return pcd_down_array
+
 def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_correction = 0,
          translation_correction = [0,0,0], Normals_boolean = False,
          Normals_radius = 0.01, Normals_Neighbours = 30, scale = 100, multiple = 1, 
-         result_file = "test", remove_mean = False):
+         result_file = "test", remove_mean = False, voxel_size = 0):
 
     """
     =============================================================================
@@ -68,6 +80,9 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     
     source_filename = BASE_DIR + "/h5_files/output/processing_results/" + source_file + ".txt"
     source_array = r.txt_to_array(source_filename)
+    
+    if(voxel_size != 0):
+        source_array = downsample_pcd(source_array, voxel_size)
     
     # Dimension (3 if no normals, 6 with normals)
     DIM = source_array[1].size
@@ -179,6 +194,8 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     --------------------------------WRITE FILE-----------------------------------
     =============================================================================
     """
+    
+    
     w.write_h5(result_file,templ_tensor,source_tensor,Ground_truth, FolderName = "experiments")
 
 if __name__ == '__main__':

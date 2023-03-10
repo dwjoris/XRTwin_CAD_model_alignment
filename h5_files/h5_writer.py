@@ -68,13 +68,16 @@ def write_h5(File_Name,template, source, gt, FolderName = ""): #Create h5 file i
     print("\n:: File saved as: ", BASE_DIR)
     return
 
-def write_h5_result(file_loc, method, Test, FolderName = "results"): 
+def write_h5_result(file_loc, method, voxel_size, Test, FolderName = "results"): 
     #Create h5 file in correct configuration for result
     
-    template, source, gt_, gt_symm = r.h5file_to_torch(file_loc)
+    template, source, gt_, gt_symm = r.h5file_to_torch(file_loc,zero_mean=False)
     
     File_Name = os.path.basename(file_loc).rsplit('.hdf5')[0] # Extract file name from path
-    BASE_DIR = create_DIR(File_Name + "_" + method, FolderName)
+    if(voxel_size != 0):
+        File_Name = File_Name + "_vs_" + str(voxel_size)
+    File_Name = File_Name + "_" + method
+    BASE_DIR = create_DIR(File_Name, FolderName)
 
     with h5py.File(BASE_DIR,"w") as data_file:
         data_file.create_dataset("template",data=template)

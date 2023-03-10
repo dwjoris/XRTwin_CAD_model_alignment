@@ -30,7 +30,7 @@ import h5_files.file_reader as r
 """
 
 #CAD Files directory
-DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/datasets/CAD/Limited"
+DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/datasets/CAD/Original"
 
 """
 =============================================================================
@@ -46,12 +46,12 @@ DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/datasets/CAD/Limited"
 # ~= 1/4 testing
 # ~= 205 it/object testing
 Number_Iter_train = 820                                           #Nmb of different itr of same object
-Number_Iter_test = 5                                            #Nmb of different itr of same object
+Number_Iter_test = 100                                            #Nmb of different itr of same object
 mu_noise = 0                                                      #Mean value for noise
 sigma_noise_max = 0.01                                            #Std deviation value for noise
 sigma_noise_bound = 0.05                                          #Values outside [-0.05,0.05] clipped
 
-Nmb_points = 2048                                                 #Nmb of points in template PC
+Nmb_points = 1024                                                 #Nmb of points in template PC
 Keep = 0.7                                                        #% of points to keep after partial
 
 Nmb_points_partial = int(Keep*Nmb_points)                         #Nmb of points to keep after partial
@@ -212,16 +212,16 @@ def name(Noise, Partial, Labeled, Normals):
 """
 
 def main():
-    Noise = False
-    Partial = True
+    Noise = True
+    Partial = False
     Normals = False
     
     # Unlabeled data (PointNetLK, RPMNet, ROPNet,...)
     name_train, name_test = name(Noise, Partial, False, Normals) # correct naming convention
     
-    # train dataset
+    # # train dataset
     # template_list_train, source_list_train, gt_list_train = create_set(DIR, 
-                                                            # Number_Iter_train, Partial, Noise, Normals)
+    #                                                         Number_Iter_train, Partial, Noise, Normals)
     # w.write_h5(name_train, template_list_train, source_list_train, gt_list_train, "files_train/")
     
     # test dataset
