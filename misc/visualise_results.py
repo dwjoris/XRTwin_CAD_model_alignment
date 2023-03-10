@@ -48,12 +48,13 @@ def transform_source_tensor(src_tensor,transfo_tensor):
     return transf_src_tensor
     
     
-def main(h5_file_loc):
+def main(h5_file_loc,zero_mean = False):
     
     # Load data
-    templ_tensor, src_tensor, gt_tensor, gt_symm_tensor = h5file_to_torch(h5_file_loc)
-    transfo_array = h5reader(h5_file_loc,'Test')
-    transfo_tensor = torch.tensor(transfo_array,dtype=torch.float64)
+    # Load data
+    templ_tensor, src_tensor, gt_tensor, gt_symm_tensor, transfo_tensor = h5file_to_torch(h5_file_loc, 
+                                                                                          zero_mean,
+                                                                                          T_est = True)
     
     # Compute transformed source
     transf_src_tensor = transform_source_tensor(src_tensor[:,:,0:3], transfo_tensor)

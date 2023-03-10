@@ -33,10 +33,9 @@ Output:
 """
 
 import time
-import torch
 import numpy as np
 from misc.errors import Errors
-from h5_files.file_reader import h5file_to_torch, h5reader
+from h5_files.file_reader import h5file_to_torch
 
 """
 =============================================================================
@@ -88,14 +87,14 @@ def non_symmetric_errors(templ_tensor, src_tensor, gt_tensor, transfo_tensor, re
     # Display errors
     # error_class.display(errors)
 
-    return errors, error_time    
+    return errors, error_time   
 
-def main(h5_file_loc,recall_lim,symm_sol = False):
+def main(h5_file_loc,recall_lim,symm_sol = False, zero_mean = False):
     
     # Load data
-    templ_tensor, src_tensor, gt_tensor, gt_symm_tensor = h5file_to_torch(h5_file_loc)
-    transfo_array = h5reader(h5_file_loc,'Test')
-    transfo_tensor = torch.tensor(transfo_array,dtype=torch.float64)
+    templ_tensor, src_tensor, gt_tensor, gt_symm_tensor, transfo_tensor = h5file_to_torch(h5_file_loc, 
+                                                                                          zero_mean,
+                                                                                          T_est = True)
     
     # In case multiple solutions exist
     if(symm_sol):

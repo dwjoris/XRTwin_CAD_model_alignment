@@ -18,7 +18,7 @@ from tabulate import tabulate #For creating tables for the errors (LINK: https:/
 # Chamfer Distance loss from learning3D toolbox, LINK: https://github.com/vinits5/learning3d#use-your-own-data
 from toolboxes.learning3d.losses import ChamferDistanceLoss
 
-import h5_files.file_reader as r
+
 
 """
 =============================================================================
@@ -28,11 +28,11 @@ import h5_files.file_reader as r
 
 def display_table(data, lim):
     names = [["Relative Error (Angular) (°):"],
-             ["Relative Error (Translational):"],
+             ["Relative Error (Translational) (mm):"],
              ["RMSE (Angular) (°):"], 
-             ["RMSE (Translational):"],
+             ["RMSE (Translational) (mm):"],
              ["MAE (Angular) (°):"],
-             ["MAE (Translational):"],
+             ["MAE (Translational) (mm):"],
              ["Recall (%), threshold: " + str(lim) + ":"],
              ["Coefficient of Determination (R2):"],
              ["Chamfer Distance:"]]
@@ -69,7 +69,7 @@ def RelativeError(R_gt,t_gt,R_est,t_est_inv):
     Error_trans = torch.mean(torch.norm(torch.add(t_est_inv.transpose(2,1),-t_gt.transpose(2,1)),dim=2))
     
     Errors = np.array([[Error_angl],
-                       [float(Error_trans)]])
+                       [float(Error_trans*1e3)]])
     
     return Errors
 
@@ -91,7 +91,7 @@ def RootMeanSquareError(R_gt,t_gt,R_est,t_est_inv,root =  True): #see Frobenius 
         Error_trans = math.sqrt(Error_trans)
         
     Errors = np.array([[float(Error_angl)], 
-                       [float(Error_trans)]])
+                       [float(Error_trans*1e3)]])
     
     return Errors
 
@@ -111,7 +111,7 @@ def MeanAbsoluteError(R_gt,t_gt,R_est_inv,t_est_inv):
     Error_trans = torch.mean(torch.square(torch.add(t_est_inv.transpose(2,1),-t_gt.transpose(2,1))))
     
     Errors = np.array([[float(Error_angl)],
-                       [float(Error_trans)]])
+                       [float(Error_trans*1e3)]])
     
     return Errors
 
