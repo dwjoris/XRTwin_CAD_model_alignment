@@ -35,24 +35,24 @@ def draw_registration_result(source, target, transformation,name):
                                       window_name=name)
     
 def preprocess_point_cloud(pcd, voxel_size):
-    print(":: Downsample with a voxel size %.3f." % voxel_size)
+    # print(":: Downsample with a voxel size %.3f." % voxel_size)
 
     pcd_down = pcd.voxel_down_sample(voxel_size)
 
     radius_normal = voxel_size * 2
-    print(":: Estimate normal with search radius %.3f." % radius_normal)
+    # print(":: Estimate normal with search radius %.3f." % radius_normal)
     pcd_down.estimate_normals(
         o3d.geometry.KDTreeSearchParamHybrid(radius=radius_normal, max_nn=30))
 
     radius_feature = voxel_size * 5
-    print(":: Compute FPFH feature with search radius %.3f." % radius_feature)
+    # print(":: Compute FPFH feature with search radius %.3f." % radius_feature)
     pcd_fpfh = o3d.pipelines.registration.compute_fpfh_feature(
         pcd_down,
         o3d.geometry.KDTreeSearchParamHybrid(radius=radius_feature, max_nn=100))
     return pcd_down, pcd_fpfh
 
 def prepare_dataset(templ_array, src_array, voxel_size):
-    print(":: Load two point clouds and disturb initial pose.")
+    # print(":: Load two point clouds and disturb initial pose.")
     
     # template = r.h5reader(file_loc,"template")
     # source_ = r.h5reader(file_loc,"source")
@@ -63,7 +63,7 @@ def prepare_dataset(templ_array, src_array, voxel_size):
     source = o3d.geometry.PointCloud()
     source.points = o3d.utility.Vector3dVector(src_array)
     
-    draw_registration_result(source, target, np.identity(4),name='Original Template & Source')
+    # draw_registration_result(source, target, np.identity(4),name='Original Template & Source')
 
     source_down, source_fpfh = preprocess_point_cloud(source, voxel_size)
     target_down, target_fpfh = preprocess_point_cloud(target, voxel_size)
@@ -73,8 +73,8 @@ def prepare_dataset(templ_array, src_array, voxel_size):
 def execute_fast_global_registration(source_down, target_down, source_fpfh,
                                      target_fpfh, voxel_size):
     distance_threshold = voxel_size * 0.5
-    print(":: Apply fast global registration with distance threshold %.3f" \
-            % distance_threshold)
+    # print(":: Apply fast global registration with distance threshold %.3f" \
+            # % distance_threshold)
     result = o3d.pipelines.registration.registration_fgr_based_on_feature_matching(
         source_down, target_down, source_fpfh, target_fpfh,
         o3d.pipelines.registration.FastGlobalRegistrationOption(
@@ -90,22 +90,22 @@ def test_one_epoch(test_loader, voxel_size, DIR):
             template_[0,:,:], source_[0,:,:], voxel_size)
         
         # Plot results (open3D)
-        draw_registration_result(source_down, target_down, np.identity(4),
-                                 name='Original Template & Source (downsampled)')
+        # draw_registration_result(source_down, target_down, np.identity(4),
+        #                          name='Original Template & Source (downsampled)')
         
         start = time.time()
         result_fast = execute_fast_global_registration(source_down, target_down,
                                                        source_fpfh, target_fpfh,
                                                        voxel_size)
         
-        print("===FGR Results===")
+        # print("===FGR Results===")
         reg_time = time.time() - start
-        print("Fast global registration took %.3f sec.\n" % reg_time)
-        print(result_fast)
+        # print("Fast global registration took %.3f sec.\n" % reg_time)
+        # print(result_fast)
         
         # Visualise result
-        draw_registration_result(source, target, result_fast.transformation,
-                                 name='Transformed Source (FGR) & Template')
+        # draw_registration_result(source, target, result_fast.transformation,
+        #                          name='Transformed Source (FGR) & Template')
         
         # Write result to created h5 file
         append_h5(DIR,'Test',result_fast.transformation)

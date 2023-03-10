@@ -80,7 +80,7 @@ def prepare_dataset(templ_array, src_array, transfo_array, icp):
     source = o3d.geometry.PointCloud()
     source.points = o3d.utility.Vector3dVector(src_array)
     
-    draw_registration_result(source, target, np.identity(4),name='Original Template & Source')
+    # draw_registration_result(source, target, np.identity(4),name='Original Template & Source')
 
     source_down, source_fpfh = preprocess_point_cloud(source, icp)
     target_down, target_fpfh = preprocess_point_cloud(target, icp)
@@ -120,8 +120,8 @@ def test_one_epoch(test_loader, icp, DIR):
                 template_[0,:,:], source_[0,:,:], T_est, icp)
         
         # Plot downsampled PCRs (open3D)
-        draw_registration_result(source_down, target_down, T_est,
-                                  name='Original Template & Source (downsampled)')
+        # draw_registration_result(source_down, target_down, T_est,
+        #                           name='Original Template & Source (downsampled)')
         
         #ICP
         start = time.time()
@@ -135,8 +135,8 @@ def test_one_epoch(test_loader, icp, DIR):
         # print(result_PtP)
         
         # Visualise result
-        draw_registration_result(source, target, result_icp.transformation,
-                                  name='Transformed Source (ICP) & Template')
+        # draw_registration_result(source, target, result_icp.transformation,
+        #                           name='Transformed Source (ICP) & Template')
         # draw_registration_result(source, target, result_PtP.transformation)
         
         # Write result of transformation to h5 file

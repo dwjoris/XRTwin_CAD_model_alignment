@@ -121,8 +121,8 @@ def test_one_epoch(test_loader, voxel_size, DIR):
         # print(result_ransac)
         
         # Plot results (open3D)
-        draw_registration_result(source, target, result_ransac.transformation, 
-                                  name='Transformed Source (RANSAC) & Template')
+        # draw_registration_result(source, target, result_ransac.transformation, 
+        #                           name='Transformed Source (RANSAC) & Template')
         
         # Write result of transformation to run.log file
         append_h5(DIR,'Test',result_ransac.transformation)

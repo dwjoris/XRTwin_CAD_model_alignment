@@ -87,7 +87,7 @@ def test_one_epoch(device, model, test_loader,DIR,algo):
             igt = igt.to(device)
             device_time = device_time + time.time() - start
             
-            # print(template)
+            # print(template.shape)
             # print(source)
             # print(igt)
 
