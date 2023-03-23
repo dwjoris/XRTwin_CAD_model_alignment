@@ -16,7 +16,7 @@ The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 d
 - [x] Installation of considered registration methods
 - [x] Creation of code infrastructure to test & train methods
 - [x] Creation of real-world scans for Cranfield benchmark dataset with D435i camera
-- [ ] Creation of real-world scans for ModelNet40 dataset with D435i camera
+- [x] Creation of real-world scans for ModelNet40 dataset with D435i camera
 - [ ] Training of considered methods with various training sets
 - [ ] Testing of learning-based methods
 - [ ] Testing of non-learning-based methods
