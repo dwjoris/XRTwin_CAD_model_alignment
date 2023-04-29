@@ -77,6 +77,7 @@ def evaluate_ROPNet(args, test_loader, DIR):
         # for i, (tgt_cloud, src_cloud, gtR, gtt) in tqdm(enumerate(test_loader)):
         for i, (tgt_cloud, src_cloud, gt) in enumerate(test_loader):
             
+            print(src_cloud.shape)
             gtR = gt[:, 0:3, 0:3]
             gtt = gt[:, 0:3, 3]
             
@@ -174,7 +175,8 @@ def main(h5_file_loc, object_name, zero_mean = True, voxel_size = 0, p_keep = [1
     args.p_keep = p_keep #If only one value => source partial, template complete
     
     #Change directory of pretrained
-    checkpoint_dir = "ROPNet/src/work_dirs/models/checkpoints/min_rot_error.pth"
+    # checkpoint_dir = "ROPNet/src/work_dirs/models/checkpoints/min_rot_error.pth"
+    checkpoint_dir = "ROPNet/src/work_dirs/partial_0.7_noisy_0.01_floor/models/checkpoints/min_rot_error.pth"
     args.checkpoint = os.path.join(os.getcwd(),'toolboxes/' + checkpoint_dir)
     
     #Input root directory
@@ -200,7 +202,7 @@ def main(h5_file_loc, object_name, zero_mean = True, voxel_size = 0, p_keep = [1
     print_metrics('ROPNet', dura, r_mse, r_mae, t_mse, t_mae,
                   r_isotropic,
                   t_isotropic)
-    vis.vis_ROPNet(args, test_loader)
+    # vis.vis_ROPNet(args, test_loader)
     
     return tot_reg_time
 

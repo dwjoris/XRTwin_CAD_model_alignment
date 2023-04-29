@@ -108,7 +108,7 @@ def test_one_epoch(test_loader, voxel_size, DIR):
         
         # Plot downsampled clouds (open3D)
         # draw_registration_result(source_down, target_down, np.identity(4),
-        #                          name='Original Template & Source (downsampled)')
+        #                           name='Original Template & Source (downsampled)')
         
         #Ransac
         start = time.time()
@@ -130,7 +130,7 @@ def test_one_epoch(test_loader, voxel_size, DIR):
     
     return registration_time/count
         
-def main(h5_file_loc, object_name,voxel_size=0.01,zero_mean=True):
+def main(h5_file_loc, object_name,voxel_size=1e-5,zero_mean=True):
     
     # Create file for saving results
     DIR = write_h5_result(h5_file_loc,"RANSAC",voxel_size, np.zeros((0,4,4)),FolderName = "results/RANSAC/"+object_name)

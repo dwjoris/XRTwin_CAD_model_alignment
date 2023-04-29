@@ -95,7 +95,11 @@ def main(h5_file_loc,object_name,zero_mean=True,voxel_size=0):
     args = options()
     
     #Change directory of pretrained
-    PRE_DIR = "toolboxes/learning3d/checkpoints/exp_rpmnet/models/best_model.t7"
+    # PRE_DIR = "toolboxes/learning3d/pretrained/exp_rpmnet/models/noisy-trained.pth"
+    PRE_DIR = "toolboxes/learning3d/checkpoints/exp_rpmnet_normal/models/best_model.t7"
+    # PRE_DIR = "toolboxes/learning3d/checkpoints/exp_rpmnet_noisy/models/best_model.t7"
+    # PRE_DIR = "toolboxes/learning3d/checkpoints/exp_rpmnet_partial_0.5/models/best_model.t7"
+    # PRE_DIR = "toolboxes/learning3d/checkpoints/exp_rpmnet_partial_0.7_noisy_0.01_floor/models/best_model.t7"
     # PRE_DIR = "toolboxes/learning3d/checkpoints/best_model.t7"
     args.pretrained = os.path.join(BASE_DIR, PRE_DIR)
 
@@ -116,7 +120,7 @@ def main(h5_file_loc,object_name,zero_mean=True,voxel_size=0):
     if args.pretrained:
         assert os.path.isfile(args.pretrained)
         model.load_state_dict(torch.load(args.pretrained, map_location='cpu'))
-        #model.load_state_dict(torch.load(args.pretrained, map_location='cpu')['state_dict'],strict=False)
+        # model.load_state_dict(torch.load(args.pretrained, map_location='cpu')['state_dict'],strict=False)
     model.to(args.device)
     
     # Solve with RPMNet

@@ -98,6 +98,7 @@ def main(h5_file_loc,object_name,zero_mean=True,voxel_size=0):
     args = options()
     
     #Change directory of pretrained
+    # PRE_DIR = "toolboxes/learning3d/checkpoints/exp_pnlk_noisy/models/best_model.t7"
     PRE_DIR = "toolboxes/learning3d/checkpoints/exp_pnlk/models/best_model.t7"
     args.pretrained = os.path.join(BASE_DIR, PRE_DIR)
     
