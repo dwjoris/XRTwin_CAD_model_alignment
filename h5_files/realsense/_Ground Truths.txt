@@ -350,3 +350,204 @@ Square_Peg_4
     	Z_angle = 0
     	translation_correction = [0,0,-0.018]
     	mul = 2
+
+
+=============================================================================================================
+|																		|
+|									BOOKSHELF								|
+|																		|
+=============================================================================================================
+
+
+Bookshelf_1
+
+    Plane_Normal_Vector = [ -0.0014, 0.5957, 0.8032] # First estimate of rotation around X-axis
+    X_angle_correction = 180 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 90 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,0,0]
+    mul = 2
+
+Bookshelf_2
+
+    Plane_Normal_Vector = [ -0.0007, 0.5687, 0.8225] # First estimate of rotation around X-axis
+    X_angle_correction = 180 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,-0.007,0.001]
+    mul = 2
+
+Bookshelf_3
+
+    Plane_Normal_Vector = [ -0.0005, 0.5692, 0.8222] # First estimate of rotation around X-axis
+    X_angle_correction = 180 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 90 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,0,0]
+    mul = 2
+
+Bookshelf_4
+
+    Plane_Normal_Vector = [ -0.0010, 0.5691, 0.8223] # First estimate of rotation around X-axis
+    X_angle_correction = -90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 90 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,-0.001,0.001]
+    mul = 2
+
+Bookshelf_5
+
+    Plane_Normal_Vector = [ -0.0007, 0.5688, 0.8225] # First estimate of rotation around X-axis
+    X_angle_correction = 180 # Correction for rortation around X-axis (degrees) 
+    Y_angle = -135 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0.003,0,0]
+    mul = 2
+
+Bookshelf_6
+
+    Plane_Normal_Vector = [ -0.0027, 0.5690, 0.8223] # First estimate of rotation around X-axis
+    X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 90 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0.002,0.004,-0.01]
+    mul = 2
+
+Bookshelf_7
+
+    Plane_Normal_Vector = [ -0.0030, 0.5689, 0.8224] # First estimate of rotation around X-axis
+    X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 45 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,0.004,-0.01]
+    mul = 2
+
+=============================================================================================================
+|																		|
+|									GUITAR								|
+|																		|
+=============================================================================================================
+
+
+Guitar_1
+
+    Plane_Normal_Vector = [ -0.0013, 0.5962, 0.8028] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 180 # rortation around Y-axis (degrees) 
+    Z_angle = 180-55
+    translation_correction = [-0.025,0,-0.005]
+    mul = 2
+
+Guitar_2
+
+    Plane_Normal_Vector = [ -0.0014, 0.5962, 0.8028] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 58
+    translation_correction = [0.003,0,-0.005]
+    mul = 2
+
+Guitar_3
+
+    Plane_Normal_Vector = [ -0.0014, 0.5957, 0.8032] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = -30
+    translation_correction = [0,0.008,-0.01]
+    mul = 2
+
+Guitar_4
+
+    Plane_Normal_Vector = [ -0.0013, 0.5960, 0.8030] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 18
+    translation_correction = [-0.008,0.008,-0.01]
+    mul = 2
+
+Guitar_5
+
+    Plane_Normal_Vector = [ -0.0029, 0.5688, 0.8225] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 180 # rortation around Y-axis (degrees) 
+    Z_angle = 180+35
+    translation_correction = [0,-0.013,0.005]
+    mul = 2
+
+Guitar_6
+
+    Plane_Normal_Vector = [ -0.0028, 0.5693, 0.8221] # First estimate of rotation around X-axis
+    X_angle_correction = 90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 180 # rortation around Y-axis (degrees) 
+    Z_angle = -100
+    translation_correction = [0,0,-0.004]
+    mul = 2
+
+=============================================================================================================
+|																		|
+|									RANGE HOOD								|
+|																		|
+=============================================================================================================
+
+Range_Hood_1
+
+    Plane_Normal_Vector = [ -0.0010, 0.5970, 0.8022] # First estimate of rotation around X-axis
+    X_angle_correction = -90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 0
+    translation_correction = [0,0,-0.01]
+    mul = 2
+
+Range_Hood_2
+
+    Plane_Normal_Vector = [ -0.0011, 0.5970, 0.8022] # First estimate of rotation around X-axis
+    X_angle_correction = -90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = -90
+    translation_correction = [0,0.004,-0.013]
+    mul = 2
+
+Range_Hood_3
+
+    Plane_Normal_Vector = [ -0.0011, 0.5972, 0.8021] # First estimate of rotation around X-axis
+    X_angle_correction = -90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = -45
+    translation_correction = [0,0.001,-0.01]
+    mul = 2
+
+Range_Hood_4
+
+    Plane_Normal_Vector = [ -0.0011, 0.5969, 0.8024] # First estimate of rotation around X-axis
+    X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 180
+    translation_correction = [0,-0.005,-0.008]
+    mul = 2
+
+Range_Hood_5
+
+    Plane_Normal_Vector = [ -0.0011, 0.5969, 0.8024] # First estimate of rotation around X-axis
+    X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    Y_angle = -45 # rortation around Y-axis (degrees) 
+    Z_angle = 180
+    translation_correction = [0.005,0.002,-0.01]
+    mul = 2
+
+Range_Hood_6
+
+    Plane_Normal_Vector = [ -0.0011, 0.5969, 0.8023] # First estimate of rotation around X-axis
+    X_angle_correction = -90 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 0 # rortation around Y-axis (degrees) 
+    Z_angle = 180
+    translation_correction = [0,0.006,-0.010]
+    mul = 2
+
+Range_Hood_7
+
+    Plane_Normal_Vector = [ -0.0026, 0.5688, 0.8224] # First estimate of rotation around X-axis
+    X_angle_correction = 0 # Correction for rortation around X-axis (degrees) 
+    Y_angle = 45 # rortation around Y-axis (degrees) 
+    Z_angle = 180
+    translation_correction = [0,0.002,-0.01]
+    mul = 2
