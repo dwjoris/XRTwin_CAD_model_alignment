@@ -42,6 +42,12 @@ from h5_files.file_reader import h5file_to_torch
 ------------------------------------CODE-------------------------------------
 =============================================================================
 """
+
+def compute_mean_variance(error_list):
+    mean = np.mean(error_list,1)
+    variance = np.var(error_list,1)
+    return mean, variance
+
 def symmetric_errors(templ_tensor, src_tensor, gt_symm_tensor, transfo_tensor, recall_lim):
     # Go over all possible ground truth solutions and find best one
     # Initialize error with max possible value (180°)

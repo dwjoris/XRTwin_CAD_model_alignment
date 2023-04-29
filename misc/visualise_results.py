@@ -66,7 +66,7 @@ def main(h5_file_loc,zero_mean = False):
                       name="Original Template & Source",index=i)
         show_open3d(transf_src_tensor[:,:,0:3], templ_tensor[:,:,0:3],
                       name="Registration Transformed Source & Template",index=i)
-        show_open3d(trans_templ_tensor[:,:,0:3], src_tensor[:,:,0:3],
+        show_open3d(src_tensor[:,:,0:3], trans_templ_tensor[:,:,0:3],
                       name=" Ground Truth Transformed Template & Source",index=i)
     
 if __name__ == '__main__':

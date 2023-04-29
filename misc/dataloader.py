@@ -85,6 +85,25 @@ def remove_mean_transformation(transformation_array,mean):
     
     return transformation_array_no_mean
 
-# file_loc = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/results/GO_ICP/Base-Top_Plate/Base-Top_Plate_1_BB_1_GO_ICP.hdf5"
-# dataset = dataset_loader(file_loc,zero_mean=True,normals=False,voxel_size=0.01, Test=True)
-# test_loader = DataLoader(dataset, batch_size=1, shuffle=False)
+# file_loc1 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.0/Base-Top_Plate/Base-Top_Plate_2_BB_1.0_Normals.hdf5"
+# file_loc2 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.2/Base-Top_Plate/Base-Top_Plate_2_BB_1.2_Normals.hdf5"
+# file_loc3 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.4/Base-Top_Plate/Base-Top_Plate_2_BB_1.4_Normals.hdf5"
+# file_loc4 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.6/Base-Top_Plate/Base-Top_Plate_2_BB_1.6_Normals.hdf5"
+# file_loc5 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.8/Base-Top_Plate/Base-Top_Plate_2_BB_1.8_Normals.hdf5"
+
+# file_locs = [file_loc1,file_loc2,file_loc3,file_loc4,file_loc5];
+
+# for file in file_locs:
+
+#     dataset = dataset_loader(file,zero_mean=False,normals=True, Test=False,voxel_size=0.002)
+#     test_loader = DataLoader(dataset, batch_size=1, shuffle=False)
+    
+#     for i,data in enumerate(test_loader):
+#         templ, source, gt = data
+    
+        
+#     templ_pc = o3d.geometry.PointCloud()
+#     templ_pc.points = o3d.utility.Vector3dVector(source[0][:,0:3])
+#     templ_pc.normals = o3d.utility.Vector3dVector(source[0][:,3:6])
+#     templ_pc.paint_uniform_color([0,0,1])
+#     o3d.visualization.draw_geometries([templ_pc])

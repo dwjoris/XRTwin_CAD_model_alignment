@@ -17,7 +17,7 @@ from tabulate import tabulate #For creating tables for the errors (LINK: https:/
 
 # Chamfer Distance loss from learning3D toolbox, LINK: https://github.com/vinits5/learning3d#use-your-own-data
 from toolboxes.learning3d.losses import ChamferDistanceLoss
-
+from h5_files.file_reader import show_open3d
 
 
 """
@@ -123,7 +123,7 @@ def Recall(R_gt,t_gt_inv,R_est_inv,t_est,source,tau):
     transfo_src = torch.add(torch.bmm(source,R_est_inv),t_est.transpose(2,1))
     tmpl = torch.add(torch.bmm(source,R_gt),t_gt_inv.transpose(2,1))
     
-    # r.show_open3d(transfo_src,tmpl)
+    # show_open3d(tmpl,transfo_src)
     
     Recall = 0
     
