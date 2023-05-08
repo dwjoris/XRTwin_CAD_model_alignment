@@ -20,7 +20,7 @@ The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 d
 - [X] Training of considered methods with various training sets
 - [X] Testing of learning-based methods
 - [X] Testing of non-learning-based methods
-- [ ] Guidelines for registration & discussion of the results
+- [X] Guidelines for registration & discussion of the results
 
 # Acknowledgements
 Special thanks go to the authors of the available code for the used registration methods and learning3d repository.
