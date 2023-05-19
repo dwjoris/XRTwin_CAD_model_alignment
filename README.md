@@ -15,12 +15,22 @@ The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 d
 Training datasets for PointNetLK, RPMNet, ROPNet and PRNet can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC)
 
 # Documentation
-The .main files allow to execute the experiments performed. 
-- main_preprocess is used to process the raw point clouds and create the required input files (.hdf5)
-- main_train can be used to train the different PCR methods
-- main_test performs the registration for the selected PCR method, for every object, for all scans
-- main_optimize allows to perform the registration, for a selected PCR method and object, with varying voxel sizes
-- main_errors computes the errors based on the found transformations, stored in the .hdf5 result files
+The __.main__ files allow to execute the experiments performed. 
+- _main_preprocess_ is used to process the raw point clouds and create the required input files (.hdf5)
+- _main_train_ can be used to train the different PCR methods
+- _main_test_ performs the registration for the selected PCR method, for every object, for all scans
+- _main_optimize_ allows to perform the registration, for a selected PCR method and object, with varying voxel sizes
+- _main_errors_ computes the errors based on the found transformations, stored in the .hdf5 result files
+
+The __settings.json__ file contains the used settings of the D435i camera.
+
+The __test__ and __train__ folders contain the individual codes to test and train the PCR methods.
+
+The **datasets** folder stores the different used CAD models for the templates.
+
+**h5_files** contains functions to process the data and create the correct .hdf5 files, as well as the input files used for the experiments, raw point clouds and result files.
+
+Inside the **misc** folder functions are added to compute errors, visualise the results, load the data etc.
 
 # Current Progress (Update 21/04/2023)
 - [x] Installation of considered registration methods
