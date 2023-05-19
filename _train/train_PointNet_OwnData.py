@@ -13,6 +13,31 @@ ADDED:
 
 """
 =============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
+
+
+
+train PointNet OwnData
+
+Train PointNet, with given parameters, for given training dataset
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Ground Truth
+
+Output:
+    - trained model
+
+Credits: 
+    PointNet Code by vinits5 as part of the Learning3D library 
+    Link: https://github.com/vinits5/learning3d#use-your-own-data
+
+"""
+
+"""
+=============================================================================
 -----------------------------------IMPORTS-----------------------------------
 =============================================================================
 """
