@@ -51,7 +51,6 @@ def transform_source_tensor(src_tensor,transfo_tensor):
 def main(h5_file_loc,zero_mean = False):
     
     # Load data
-    # Load data
     templ_tensor, src_tensor, gt_tensor, gt_symm_tensor, transfo_tensor = h5file_to_torch(h5_file_loc, 
                                                                                           zero_mean,
                                                                                           T_est = True)
@@ -64,9 +63,9 @@ def main(h5_file_loc,zero_mean = False):
     for i in range(nmb_obj):
         show_open3d(templ_tensor[:,:,0:3], src_tensor[:,:,0:3],
                       name="Original Template & Source",index=i)
-        show_open3d(transf_src_tensor[:,:,0:3], templ_tensor[:,:,0:3],
+        show_open3d(templ_tensor[:,:,0:3],transf_src_tensor[:,:,0:3], 
                       name="Registration Transformed Source & Template",index=i)
-        show_open3d(src_tensor[:,:,0:3], trans_templ_tensor[:,:,0:3],
+        show_open3d(trans_templ_tensor[:,:,0:3],src_tensor[:,:,0:3], 
                       name=" Ground Truth Transformed Template & Source",index=i)
     
 if __name__ == '__main__':

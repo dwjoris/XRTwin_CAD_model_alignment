@@ -1,5 +1,38 @@
 """
 =============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
+
+
+
+errors
+
+Class to compute all the desired errors, comparing PCR performance.
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+        o Estimated Transformation
+
+Output:
+    - Errors list
+    
+Credits:
+    Chamfer distance & "get_transformations" function by vinit5, as part of the Learning3D toolbox
+    LINK: https://github.com/vinits5/learning3d#use-your-own-data
+    
+    Creating tables using tabulate
+    LINK: https://pypi.org/project/tabulate/
+    
+    Euler angles computation
+    LINK: LINK: http://eecs.qmul.ac.uk/~gslabaugh/publications/euler.pdf
+
+"""
+
+"""
+=============================================================================
 -----------------------------------IMPORTS-----------------------------------
 =============================================================================
 """
@@ -13,11 +46,14 @@ from tqdm import tqdm
 from sklearn.neighbors import NearestNeighbors
 from scipy.spatial.distance import minkowski
 
-from tabulate import tabulate #For creating tables for the errors (LINK: https://pypi.org/project/tabulate/)
+# For creating tables for the errors,
+# LINK: https://pypi.org/project/tabulate/
+from tabulate import tabulate 
 
-# Chamfer Distance loss from learning3D toolbox, LINK: https://github.com/vinits5/learning3d#use-your-own-data
+# Chamfer Distance loss from learning3D toolbox, 
+# LINK: https://github.com/vinits5/learning3d#use-your-own-data
 from toolboxes.learning3d.losses import ChamferDistanceLoss
-from h5_files.file_reader import show_open3d
+# from h5_files.file_reader import show_open3d
 
 
 """
@@ -167,7 +203,9 @@ def Coeff_Determination(R_gt,t_gt_inv,R_est_inv,t_est,source):
     Errors = np.array([[float(R2)]])
     return Errors
 
-def new_metric(transfo_src,template): #mean of quadratic distance
+def new_metric(transfo_src,template): 
+    # -- unused --
+    # :: mean of quadratic distance
     nmb_points = transfo_src.shape[1]
     #print(nmb_points)
     transfo_src = transfo_src[0].tolist()
@@ -191,7 +229,7 @@ def new_metric(transfo_src,template): #mean of quadratic distance
 =============================================================================
 """
 
-def get_transformations(tensor): #From test_DCP
+def get_transformations(tensor): 
     R_ba = tensor[:, 0:3, 0:3]                          # Ps = R_ba * Pt, should be =~ output['est_R']
     translation_ba = tensor[:, 0:3, 3].unsqueeze(2)     # Ps = Pt + t_ba
     R_ab = R_ba.permute(0, 2, 1)                        # Pt = R_ab * Ps, inverse/transposed of R_ba
@@ -202,7 +240,10 @@ def get_transformations(tensor): #From test_DCP
     tensor_inv = torch.concat([temp,row],axis=1) #Pt = igt_inv * Ps
     return  R_ba, translation_ba , R_ab, translation_ab, tensor_inv
 
-def EulerAngles(R): #LINK: http://eecs.qmul.ac.uk/~gslabaugh/publications/euler.pdf
+def EulerAngles(R): 
+    # :: Computes Euler angles from rotation matrix
+    # LINK: http://eecs.qmul.ac.uk/~gslabaugh/publications/euler.pdf
+    
     if(R[2,0] != 1 or -1):
         theta_1 = -math.cos(R[2,0])
         theta_2 = math.pi-theta_1

@@ -1,3 +1,21 @@
+"""
+=============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
+
+
+
+plotter (for info)
+
+Contains different functions to plot results
+
+"""
+
+"""
+=============================================================================
+-----------------------------------IMPORTS-----------------------------------
+=============================================================================
+"""
 
 #Import libraries
 import matplotlib.pyplot as plt
@@ -6,11 +24,22 @@ import matplotlib.pyplot as plt
 """~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PLOTTING~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"""
 """----------------------------------------------------------------------------------"""
 
+def failure_division_plot(failure_div_list, nmb_scans, object_name):
+    # Used to plot amount of failures for each scan
+    scan_names = range(1,nmb_scans+1)
+    
+    fig1, ax1 = plt.subplots()
+    ax1.bar(scan_names, failure_div_list)
+    ax1.set_title("Failure division among scans for " + object_name)
+    ax1.set_ylabel("Number of failures (%)")
+    ax1.set_xlabel("Scan Number")
+    ax1.legend()
+    
 def Acc_Loss_Plot(epoch_numb,train_losses,train_accuracies,test_losses,test_accuracies,exp_name,ths):
     fig1, ax1 = plt.subplots()
     ax1.plot(epoch_numb, train_losses,"orange",label="Training")
     ax1.plot(epoch_numb, test_losses,"blue",label ="Validation")
-    ax1.set_title("Training and Validation Losses (Frobenius & RMSE-Feature losses)")
+    ax1.set_title("Training and Validation Losses (Frobenius)")
     ax1.set_ylabel("Loss")
     ax1.set_xlabel("Number of Epochs")
     ax1.legend()
@@ -23,11 +52,10 @@ def Acc_Loss_Plot(epoch_numb,train_losses,train_accuracies,test_losses,test_accu
     ax2.set_xlabel("Number of Epochs")
     ax2.legend()
 
-    #fig1.savefig('C:/Users/menth/Pictures/Thesis/Network Training/'+ exp_name +'_losses.eps', transparent=True)
-    #fig2.savefig('C:/Users/menth/Pictures/Thesis/Network Training/'+ exp_name +'_accuracies.eps', transparent=True)
+    fig1.savefig('C:/Users/menth/Pictures/Thesis/Network Training/'+ exp_name +'_losses.eps', transparent=True)
+    # fig2.savefig('C:/Users/menth/Pictures/Thesis/Network Training/'+ exp_name +'_accuracies.eps', transparent=True)
     
-    
-def read_run_file(DIR):
+def read_run_file(DIR,exp_name):
     file = open(DIR, 'r')
     count = 0
     epoch_list = []
@@ -40,7 +68,8 @@ def read_run_file(DIR):
     first_line = lines[0]
     lines = lines[1:]
     
-    exp_name = first_line.split('(')[1].split(',')[0].split('=')[1][1:-1]
+    # exp_name = first_line.split('(')[1].split(',')[0].split('=')[1][1:-1]
+    # print(exp_name)
     
     for line in lines:
         #print(line)
@@ -66,5 +95,5 @@ def read_run_file(DIR):
     return 
 
 if __name__ == '__main__':
-    DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/toolboxes/learning3d/checkpoints/run.log"
-    read_run_file(DIR)
+    DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/toolboxes/learning3d/checkpoints/run1.log"
+    read_run_file(DIR,"overfitting")

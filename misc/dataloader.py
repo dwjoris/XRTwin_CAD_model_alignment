@@ -1,11 +1,45 @@
+"""
+=============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
 
+
+
+dataloader
+
+Loads in the .hdf5 file and returns a dataset loader object with the desired
+parameters to loop over all objects inside.
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+        o Estimated Transformation
+
+Output:
+    - dataloader object
+"""
+
+"""
+=============================================================================
+-----------------------------------IMPORTS-----------------------------------
+=============================================================================
+"""
 import torch
 import numpy as np
 import open3d as o3d
 from h5_files.file_reader import h5reader
 from torch.utils.data import DataLoader
 
+"""
+=============================================================================
+-----------------------------------CLASS-------------------------------------
+=============================================================================
+"""
+
 class dataset_loader():
+    # :: Create class to load .hdf5 files with desired parameters
     def __init__(self,file_loc,zero_mean = False, normals = False, voxel_size = 0, Test = False):
         self.file_loc = file_loc
         self.template = h5reader(file_loc,'template')
@@ -48,6 +82,9 @@ class dataset_loader():
                 torch.tensor(self.transformation[index]).float() 
     
     def downsample_pcd(self, pcd_array):
+        # :: WARNING :: 
+        # :: Downsampling point cloud only implemented when 1 object in .hdf5 file, not for training sets
+        
         # Turn point cloud array into point cloud
         r = 2 * self.voxel_size
         neigh_max = 30
@@ -69,7 +106,16 @@ class dataset_loader():
         pcd_down_array =  np.expand_dims(pcd_down_points, 0)
         return pcd_down_array
 
+
+"""
+=============================================================================
+---------------------------------FUNCTIONS-----------------------------------
+=============================================================================
+"""
+
 def remove_mean(pcd_array):
+    # :: Remove mean from point cloud
+    
     pcd_mean = np.mean(pcd_array,1)[:,0:3]
     # print(pcd_mean)
     pcd_array_no_mean = pcd_array
@@ -77,6 +123,8 @@ def remove_mean(pcd_array):
     return pcd_array_no_mean, pcd_mean
 
 def remove_mean_transformation(transformation_array,mean):
+    # :: Remove mean from translation vector in ground truth
+        
     transformation_array_no_mean = transformation_array
     nmb_transf = transformation_array.shape[0]
     
@@ -84,26 +132,3 @@ def remove_mean_transformation(transformation_array,mean):
         transformation_array_no_mean[i,0:3,3] = transformation_array_no_mean[i,0:3,3] - mean
     
     return transformation_array_no_mean
-
-# file_loc1 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.0/Base-Top_Plate/Base-Top_Plate_2_BB_1.0_Normals.hdf5"
-# file_loc2 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.2/Base-Top_Plate/Base-Top_Plate_2_BB_1.2_Normals.hdf5"
-# file_loc3 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.4/Base-Top_Plate/Base-Top_Plate_2_BB_1.4_Normals.hdf5"
-# file_loc4 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.6/Base-Top_Plate/Base-Top_Plate_2_BB_1.6_Normals.hdf5"
-# file_loc5 = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/experiments/BB_Effect/BB_1.8/Base-Top_Plate/Base-Top_Plate_2_BB_1.8_Normals.hdf5"
-
-# file_locs = [file_loc1,file_loc2,file_loc3,file_loc4,file_loc5];
-
-# for file in file_locs:
-
-#     dataset = dataset_loader(file,zero_mean=False,normals=True, Test=False,voxel_size=0.002)
-#     test_loader = DataLoader(dataset, batch_size=1, shuffle=False)
-    
-#     for i,data in enumerate(test_loader):
-#         templ, source, gt = data
-    
-        
-#     templ_pc = o3d.geometry.PointCloud()
-#     templ_pc.points = o3d.utility.Vector3dVector(source[0][:,0:3])
-#     templ_pc.normals = o3d.utility.Vector3dVector(source[0][:,3:6])
-#     templ_pc.paint_uniform_color([0,0,1])
-#     o3d.visualization.draw_geometries([templ_pc])
