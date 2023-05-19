@@ -1,4 +1,4 @@
-"""
+""""
 =============================================================================
 -------------------------------------INFO------------------------------------
 =============================================================================
@@ -9,10 +9,20 @@ h5 writer
 
 Various functions allowing to create .hdf5 files in various formats. Functions
 include:
-    - write_h5 (file containing template, source, gt)
-    - write_h5_sep (R/t seperated)
-    - write_h5_labeled (h5 file with labels of objects)
-    - 
+    - write_h5 
+        o file containing template, source, gt
+    - write_h5_result
+        o file containing template, source, gt, estimated transformation
+    - append_h5
+        o append new data to given h5 file
+    - write_h5_sep 
+        o R/t seperated
+    - write_h5_labeled 
+        o h5 file with labels of objects
+    - create_DIR
+        o creates directory based on folder & file name
+    - uniquify
+        o 
 
 Inputs:
     - .ply file (Source, RealSense)
@@ -20,6 +30,17 @@ Inputs:
 Output:
     - .txt file containing:
         o Source (w/ normals)
+
+Credits:
+    Uniquify function
+    LINK: https://stackoverflow.com/questions/13852700/create-file-but-if-name-exists-add-number
+    
+    appending data to .hdf5 file
+    LINK: https://stackoverflow.com/a/47074545
+    
+    Farthest Subsample Point function by vinits5 as part of the Learning3D library 
+    (learning3d: dataloaders.py)
+    Link: https://github.com/vinits5/learning3d#use-your-own-data
 
 """
 
@@ -34,6 +55,7 @@ import numpy as np
 import torch
 import math
 import open3d as o3d
+import copy
 import os
 
 from sklearn.neighbors import NearestNeighbors
@@ -92,8 +114,6 @@ def write_h5_result(file_loc, method, voxel_size, Test, FolderName = "results"):
 def write_h5_sep(File_Name,template, source, Rab, tab, FolderName = ""): #Create h5 file in correct configuration
     BASE_DIR = create_DIR(File_Name, FolderName)
 
-    # batch_size = template.shape[0]
-
     with h5py.File(BASE_DIR,"w") as data_file:
         data_file.create_dataset("template",data=template)
         data_file.create_dataset("source",data=source)
@@ -119,6 +139,8 @@ def append_h5(file_loc,key,new_data):
     h5file.close()                          # close the file
 
 def write_h5_labeled(File_Name,pointcloud,labels, FolderName):
+    # :: Save labeled point clouds
+    
     BASE_DIR = create_DIR(File_Name, FolderName)
 
     with h5py.File(BASE_DIR,"w") as data_file:
@@ -127,6 +149,8 @@ def write_h5_labeled(File_Name,pointcloud,labels, FolderName):
     return
 
 def create_DIR(File_Name, FolderName):
+    # :: Create directory for given file name & folder name to save .hdf5 file results
+    
     if(FolderName == ""):
         FolderName = File_Name
     DIR = "C:/Users/menth/Documents/Python Scripts/Thesis/h5_files/output/"
@@ -138,8 +162,10 @@ def create_DIR(File_Name, FolderName):
     DIR = uniquify(DIR)
     return DIR
 
-# https://stackoverflow.com/questions/13852700/create-file-but-if-name-exists-add-number
 def uniquify(path):
+    # :: Check if path exists and if so add number
+    # :: LINK: https://stackoverflow.com/questions/13852700/create-file-but-if-name-exists-add-number
+    
     filename, extension = os.path.splitext(path)
     counter = 1
 
@@ -150,6 +176,8 @@ def uniquify(path):
     return path
 
 def save_as_txt(pcd,name):
+    # :: Save point cloud as .txt file
+    
     print(":: Saving file...")
     save = np.asarray(pcd.points)
 
@@ -167,6 +195,7 @@ def save_as_txt(pcd,name):
 """
 
 def add_floor(pointcloud):
+    # -- unused --
     corners = box_cloud(pointcloud)
 
     #minx = np.min(corners[:,0])
@@ -190,6 +219,7 @@ def add_floor(pointcloud):
     return new_pointcloud
 
 def sample_plane(corners):
+    # -- unused --
     points_list = []
 
     diff = corners[2]-corners[0]
@@ -211,6 +241,7 @@ def sample_plane(corners):
     return points_list
 
 def sample_line(begin,end):
+    # -- unused --
     points_list = []
 
     diff = end-begin
@@ -244,6 +275,8 @@ def farthest_subsample_points(pointcloud1, num_subsampled_points=768):
 """
 
 def apply_transfo(template,R,t,normals=False):
+    # :: Apply rigid transformation to template 
+    
     if(normals == False):
         source = np.zeros((1,template.shape[1],3))
         for i in range(template.shape[1]):
@@ -260,6 +293,8 @@ def apply_transfo(template,R,t,normals=False):
     return source
 
 def rotation_matrix(angle,axis):
+    # :: Create rotation matrix with angle over axis
+    
     angle = angle*math.pi/180
     R = np.eye(3)
     if(axis == "z"):
@@ -274,7 +309,8 @@ def rotation_matrix(angle,axis):
     return R
 
 def random_rotation():
-    #Random rotations over random axis in [0,45] degrees
+    # :: Create random rotations over random axis in [0,45] degrees
+    
     theta1 = float(np.random.rand(1)*45)
     theta2 = float(np.random.rand(1)*45)
     theta3 = float(np.random.rand(1)*45)
@@ -288,20 +324,25 @@ def random_rotation():
 
     return R
 
-def homogenous_transfo(R,t): #to create Ground Truth
+def homogenous_transfo(R,t): 
+    # :: Create Ground Truth from rotation matrix & translation vector
     T = np.zeros((4,4))
     T[3,3] = 1
     T[0:3,0:3] = R
     T[:3,3] = t
     return T
 
-def add_Gaussian_Noise(mu,sigma,source,bound):
-    for i in range(source.shape[1]):
+def add_Gaussian_Noise(mu,sigma,orig_cloud,bound):
+    # :: Add Gaussian Noise from a normal distribution with mean mu and deviation sigma,
+    # :: clipped to [-bound,+bound] to the given array of points ([1,N,3]).
+    noisy_cloud = copy.deepcopy(orig_cloud);
+    for i in range(noisy_cloud.shape[1]):
         noise = np.clip(np.random.normal(0,sigma,(1,3)),-bound,bound)
-        source[0][i][0:3] = np.add(source[0][i][0:3],noise)
-    return source
+        noisy_cloud[0][i][0:3] = np.add(noisy_cloud[0][i][0:3],noise)
+    return noisy_cloud
 
 def box_cloud(point_cloud):
+    # :: Determine point cloud bounding box
     template_ = o3d.geometry.PointCloud()                               #Create point cloud
     template_.points = o3d.utility.Vector3dVector(point_cloud[0][:][:]) #Add points to cloud
     aabb = template_.get_axis_aligned_bounding_box()                    #Extract bounding box
@@ -311,7 +352,7 @@ def box_cloud(point_cloud):
 
 
 """
--------------------FROM PointNetLK-------------------
+-------------------FROM PointNetLK (unused)-------------------
 """
 
 class Resampler:
@@ -335,7 +376,7 @@ class Resampler:
 
 """
 =============================================================================
-----------------------------------EXAMPLES-----------------------------------
+----------------------------EXAMPLES (for info)------------------------------
 =============================================================================
 """
     
@@ -432,7 +473,7 @@ def main():
     mesh.paint_uniform_color([0, 0, 1])
     # o3d.visualization.draw_geometries([mesh])
     
-    o3d.visualization.draw_geometries([pcd])
+    # o3d.visualization.draw_geometries([pcd])
 
     mean = torch.mean(template,1)                               # Calculate PC mean
     template = template - mean                                  # Remove mean from PC to center
@@ -480,7 +521,7 @@ def main():
     """ Example 06: Load source from text file """
     """ ---------------------------------------"""
     
-    filename = BASE_DIR + "/h5_files/output/processing_results/realsense_Square-Peg1.txt"
+    filename = BASE_DIR + "/h5_files/output/processing_results/Old/realsense_Square-Peg1.txt"
     source_ = r.txt_to_array(filename)
     
     # cam_dir = np.mean(source_,0)
@@ -559,7 +600,7 @@ def main():
     """ Example 09: Create 2 txt files for Source/Template  """
     """ ----------------------------------------------------"""
     
-    filename = BASE_DIR + "/h5_files/output/processing_results/realsense_Base-Top_Plate1.txt"
+    filename = BASE_DIR + "/h5_files/output/processing_results/Old/realsense_Base-Top_Plate1.txt"
     source_ = r.txt_to_array(filename)
     
     # cam_dir = np.mean(source_,0)
@@ -609,7 +650,7 @@ def main():
     """ Example 10: Load source from text file (with normals) """
     """ ------------------------------------------------------"""
     
-    filename = BASE_DIR + "/h5_files/output/processing_results/Base-Top_Plate_Normals.txt"
+    filename = BASE_DIR + "/h5_files/output/processing_results/Old/Base-Top_Plate_Normals.txt"
     source_ = r.txt_to_array(filename)
     
     # cam_dir = np.mean(source_,0)
@@ -646,9 +687,73 @@ def main():
     R = rotation_matrix(10,"y")                                             # Rotation matrix,    Ps = R*Pt
     gt = homogenous_transfo(R,t)
 
-    r.show_open3d(template[:,:,0:3], source[:,:,0:3])
-    write_h5("test_scan_normals",template,source,gt)
+    # r.show_open3d(template[:,:,0:3], source[:,:,0:3])
+    # write_h5("test_scan_normals",template,source,gt)
     
+    """ ------------------------------------------------------------"""
+    """ Example 11: Show difference in real scale vs training scale """
+    """ ------------------------------------------------------------"""
+    
+    filename = BASE_DIR + "/datasets/CAD/Original/Base-Top_Plate.stl"
+    [Train_PC,_,Train_PC_max] = r.read_stl(filename,Nmb_points=10240,Scale=True)
+    print(Train_PC_max)
+    [Orign_PC,_,_] = r.read_stl(filename,Nmb_points=1024,Scale=False)
+    Orign_PC = Orign_PC/100;
+    
+    Train_PC_tensor = torch.from_numpy(Train_PC);
+    Train_PC_tensor = Train_PC_tensor.expand(1,10240,3)
+    Orign_PC_tensor = torch.from_numpy(Orign_PC);
+    Orign_PC_tensor = Orign_PC_tensor.expand(1,1024,3)
+
+    t = [1,0,0]                                                             # Translation vector, Ps = Pt + t
+    R = rotation_matrix(0,"y")                                             # Rotation matrix,    Ps = R*Pt
+    
+    Orign_PC_tensor = apply_transfo(Orign_PC_tensor,R, t, normals = False)
+
+    # r.show_open3d(Train_PC_tensor, Orign_PC_tensor)
+    
+    """ --------------------------------------------------"""
+    """ Example 12: Show different types of training data """
+    """ --------------------------------------------------"""
+    
+    nmb_points = 10240
+    filename = BASE_DIR + "/datasets/CAD/Original/Base-Top_Plate.stl"
+    filename_floor = BASE_DIR + "/datasets/CAD/Floor/Base-Top_Plate.stl"
+    object_mesh = o3d.io.read_triangle_mesh(filename)                              # Read Mesh file
+    [Orign_PC,_,_] = r.read_stl(filename,Nmb_points=nmb_points,Scale=False, Center = False)
+    [Floor_PC,_,_] = r.read_stl(filename_floor,Nmb_points=nmb_points,Scale=False, Center = False)
+    
+    Orign_PC_tensor = torch.from_numpy(Orign_PC);
+    Floor_PC_tensor = torch.from_numpy(Floor_PC);
+    Orign_PC_tensor_ext = Orign_PC_tensor.expand(1,nmb_points,3)
+    
+    Noisy_PC_tensor = add_Gaussian_Noise(0, 0.1, Orign_PC_tensor_ext,0.5) 
+    
+    Partial_PC_tensor,_ = farthest_subsample_points(Orign_PC_tensor,int(0.5*nmb_points))
+
+    Floor_Partial_tensor,_ = farthest_subsample_points(Floor_PC_tensor,int(0.5*nmb_points))
+    Floor_Partial_tensor = Floor_Partial_tensor.expand(1,int(0.5*nmb_points),3)
+    Floor_Partial_Noisy_tensor = add_Gaussian_Noise(0, 0.1, Floor_Partial_tensor, 0.5)
+
+    Original_PC = o3d.geometry.PointCloud()
+    Noisy_PC = o3d.geometry.PointCloud()
+    Partial_PC = o3d.geometry.PointCloud()
+    Floor_PC = o3d.geometry.PointCloud()
+    
+    Original_PC.points = o3d.utility.Vector3dVector(Orign_PC_tensor)
+    Noisy_PC.points = o3d.utility.Vector3dVector(Noisy_PC_tensor[0][:][:])
+    Partial_PC.points = o3d.utility.Vector3dVector(Partial_PC_tensor)
+    Floor_PC.points = o3d.utility.Vector3dVector(Floor_Partial_Noisy_tensor[0][:][:])
+    
+    Original_PC.paint_uniform_color([0, 0, 1])
+    Noisy_PC.paint_uniform_color([0, 0, 1])
+    Partial_PC.paint_uniform_color([0, 0, 1])
+    Floor_PC.paint_uniform_color([0,0,1])
+    
+    o3d.visualization.draw_geometries([object_mesh,Original_PC])
+    o3d.visualization.draw_geometries([object_mesh,Noisy_PC])
+    o3d.visualization.draw_geometries([object_mesh,Partial_PC])
+    o3d.visualization.draw_geometries([object_mesh,Floor_PC])
     
 if __name__ == '__main__':
     main()

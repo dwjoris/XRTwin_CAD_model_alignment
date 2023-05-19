@@ -56,7 +56,15 @@ BASE_DIR = os.getcwd() #Parent folder -> Thesis
 # CAD_name = "Square-Peg"
 
 
+"""
+=============================================================================
+---------------------------------FUNCTIONS-----------------------------------
+=============================================================================
+"""
+
 def downsample_pcd(pcd_array,voxel_size):
+    # :: Downsamples point cloud with given voxel size
+    
     # Turn point cloud array into point cloud
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(pcd_array)
@@ -68,7 +76,7 @@ def downsample_pcd(pcd_array,voxel_size):
     return pcd_down_array
 
 def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_correction = 0,
-         translation_correction = [0,0,0], Normals_boolean = False,
+         translation_correction = [0,0,0], Normals_boolean = False, Folder_name = "Original",
          Normals_radius = 0.01, Normals_Neighbours = 30, scale = 100, multiple = 1, 
          result_file = "test", remove_mean = False, voxel_size = 0):
 
@@ -79,6 +87,7 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     """
     
     source_filename = BASE_DIR + "/h5_files/output/processing_results/" + source_file + ".txt"
+    # Turn .txt file to array
     source_array = r.txt_to_array(source_filename)
     
     if(voxel_size != 0):
@@ -92,9 +101,11 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     else:
         Normals_boolean = False
     
+    # Array to tensor
     source_tensor = torch.from_numpy(source_array)
     source_tensor = source_tensor.expand(1,source_tensor.size(0),DIM)
     
+    # Source mean
     source_mean = torch.mean(source_tensor,  1) 
     
     if(remove_mean):
@@ -112,13 +123,14 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     """
     
     # Read Mesh file
-    template_filename = BASE_DIR + "/datasets/CAD/Original/" + CAD_name + ".stl"
+    template_filename = BASE_DIR + "/datasets/CAD/"+ Folder_name + "/" + CAD_name + ".stl"
     template_mesh = o3d.io.read_triangle_mesh(template_filename)  
     
     # Sample Mesh uniformly
     templ_nmb_points = source_nmb_points*multiple
     templ_pcd = template_mesh.sample_points_uniformly(number_of_points=templ_nmb_points)  
     
+    # Scale to get correct dimensions
     templ_array = np.asarray(templ_pcd.points)/scale
     
     # Estimate normals if normal information included
@@ -184,7 +196,7 @@ def main(source_file, CAD_name, Y_angle, Z_angle, Plane_Normal_Vector, X_angle_c
     =============================================================================
     """
     # Template (CAD) & Source (Scan)
-    r.show_open3d(templ_tensor[:,:,0:3], source_tensor[:,:,0:3], name = "Original Template (CAD) & Source (Scan)")
+    # r.show_open3d(templ_tensor[:,:,0:3], source_tensor[:,:,0:3], name = "Original Template (CAD) & Source (Scan)")
     
     # Transformed source (with GT) & Source (Scan)
     r.show_open3d(source_tensor[:,:,0:3], transf_tmpl_tensor[:,:,0:3], name="Ground Truth Transformed Template & Source (scan)")

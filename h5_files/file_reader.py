@@ -10,12 +10,20 @@ file reader
 Read different types of files (.txt, .hdf5, .stl) and turn into array
 
 Inputs:
-    - .hdf5 files c
+    - .hdf5 files 
     - .txt files
     - .stl files
 
 Output:
     - array with data
+    
+Credits:
+    .hdf5 file reading
+    LINK: https://stackoverflow.com/questions/28170623/how-to-read-hdf5-files-in-python
+    
+    .txt file reading
+    LINK: https://stackoverflow.com/questions/14676265/how-to-read-a-text-file-into-a-list-or-an-array-with-python
+
 
 """
 
@@ -29,14 +37,15 @@ import h5py
 import open3d as o3d
 import numpy as np
 import torch
-#import ptlk
 
 """
 =============================================================================
 -----------------------------READING FUNCTIONS-------------------------------
 =============================================================================
 """
-def read_stl(file_loc, Nmb_points, Normals = False):                 # Read, scale and estimate normals
+def read_stl(file_loc, Nmb_points, Normals = False, Center = True, Scale = True):   
+    # :: Read .stl file, scale and estimate normals
+    
     # Create point cloud
     mesh = o3d.io.read_triangle_mesh(file_loc)                       # Read Mesh file
     pcd = mesh.sample_points_uniformly(number_of_points=Nmb_points)  # Sample Mesh uniformly
@@ -45,12 +54,15 @@ def read_stl(file_loc, Nmb_points, Normals = False):                 # Read, sca
     data_array = np.asarray(pcd.points)                              # Turn PC to array of points
     
     data_mean = np.mean(data_array,0)                                # Calculate PC mean
-    data_array = data_array - data_mean                              # Remove mean from PC to center
+    
+    if(Center):
+        data_array = data_array - data_mean                          # Remove mean from PC to center
                                                                      # on (0,0,0)
-                                                                     
-    max = np.max(np.max(np.abs(data_array),0))
-    #print(max)
-    data_array = data_array/(max)
+    max_value = 1
+    if(Scale):
+        max_value = np.max(np.max(np.abs(data_array),0))
+        #print(max)
+        data_array = data_array/(max_value)
     
     # Add normals if required
     if(Normals):
@@ -59,10 +71,14 @@ def read_stl(file_loc, Nmb_points, Normals = False):                 # Read, sca
         normals_array = np.asarray(pcd.normals)
         data_array = np.append(data_array,normals_array,1)
     
-    return data_array
+    return data_array, data_mean, max_value
 
 
-def read_Test_txt(file_loc):                # Test should be in the form of a 2D array
+def read_Test_txt(file_loc): 
+    # -- unused --
+    # :: Read estimated transformation from .txt file               
+    # :: Test should be in the form of a 2D array
+    
     file = open(file_loc,'r')
     T_list = []
     T_est = []
@@ -106,7 +122,9 @@ def read_Test_txt(file_loc):                # Test should be in the form of a 2D
 
 
 def h5reader(file_dict,key):
-    #Link: https://stackoverflow.com/questions/28170623/how-to-read-hdf5-files-in-python
+    # Read h5 file from directory with given key
+    # :: Link: https://stackoverflow.com/questions/28170623/how-to-read-hdf5-files-in-python
+    
     with h5py.File(file_dict,"r") as f:
         if(key in f.keys()):
             dataset = f[key][()]
@@ -115,7 +133,9 @@ def h5reader(file_dict,key):
     return dataset
 
 def txt_to_array(filename):
-    #Link: https://stackoverflow.com/questions/14676265/how-to-read-a-text-file-into-a-list-or-an-array-with-python
+    # :: Read .txt file and turn into array
+    # Link: https://stackoverflow.com/questions/14676265/how-to-read-a-text-file-into-a-list-or-an-array-with-python
+    
     list_of_lists = []
 
     with open(filename) as f:
@@ -130,14 +150,15 @@ def txt_to_array(filename):
 
 """
 =============================================================================
------------------------------dataloader import-------------------------------
+-----------------------------DATALOADER IMPORT-------------------------------
 =============================================================================
 """
-
+# Import dataloader function
 from misc import dataloader
 
 def h5file_to_torch(file_loc, zero_mean, T_est = False):
-    # Turn basic h5 file into tensors
+    # :: Turn basic .hdf5 file, containing template, source, ground truth and estimated transformation
+    # :: into tensor
     
     dataset = dataloader.dataset_loader(file_loc, zero_mean, Test = T_est)
     templ_array = dataset.template
@@ -168,6 +189,8 @@ def h5file_to_torch(file_loc, zero_mean, T_est = False):
 """
 
 def show_open3d(template,source, name = "Open3D", index = 0):
+    # :: Visualise template and source
+    
     # Create point clouds
     template_ = o3d.geometry.PointCloud()
     source_ = o3d.geometry.PointCloud()
@@ -186,13 +209,14 @@ def show_open3d(template,source, name = "Open3D", index = 0):
     src_bb.color = (0,1,0)
     
     # Add axis system
-    mesh_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.1, origin=[0,0,0])
+    # mesh_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.1, origin=[0,0,0])
     # o3d.visualization.draw_geometries([template_,source_,templ_bb,src_bb])
-    o3d.visualization.draw_geometries([template_,source_,mesh_frame],window_name=name)
+    # o3d.visualization.draw_geometries([template_,source_,mesh_frame],window_name=name)
+    o3d.visualization.draw_geometries([template_,source_],window_name=name)
     # volume_ratio(templ_bb, src_bb)
 
 def volume_ratio(bb_1,bb_2):
-    
+    # :: Compute  ratio of volumes for rectangles
     corners_1 = np.array(bb_1.get_box_points())
     corners_2 = np.array(bb_2.get_box_points())
     
@@ -206,54 +230,10 @@ def volume_ratio(bb_1,bb_2):
     return
 
 def rect_volume(corners):
+    # :: Compute rectangle volume
     l1 = np.linalg.norm(corners[1]-corners[0])
     l2 = np.linalg.norm(corners[2]-corners[0])
     l3 = np.linalg.norm(corners[3]-corners[0])
     V = l1*l2*l3
     print(V)
     return V
-
-# """
-# -------------------FROM PointNetLK-------------------
-# """
-
-# def offread(filepath, points_only=True):
-#     """ read Geomview OFF file. """
-#     with open(filepath, 'r') as fin:
-#         mesh, fixme = _load_off(fin, points_only)
-#     return mesh
-
-# def _load_off(fin, points_only):
-#     """ read Geomview OFF file. """
-#     mesh = ptlk.data.mesh.Mesh()
-
-#     fixme = False
-#     sig = fin.readline().strip()
-#     if sig == 'OFF':
-#         line = fin.readline().strip()
-#         num_verts, num_faces, num_edges = tuple([int(s) for s in line.split(' ')])
-#     elif sig[0:3] == 'OFF': # ...broken data in ModelNet (missing '\n')...
-#         line = sig[3:]
-#         num_verts, num_faces, num_edges = tuple([int(s) for s in line.split(' ')])
-#         fixme = True
-#     else:
-#         raise RuntimeError('unknown format')
-
-#     for v in range(num_verts):
-#         vp = tuple(float(s) for s in fin.readline().strip().split(' '))
-#         mesh._vertices.append(vp)
-#         #print(mesh)
-        
-
-#     if points_only:
-#         return mesh, fixme
-
-#     for f in range(num_faces):
-#         fc = tuple([int(s) for s in fin.readline().strip().split(' ')][1:])
-#         mesh._faces.append(fc)
-
-#     return mesh, fixme
-
-# """
-# -----------------------------------------------------
-# """

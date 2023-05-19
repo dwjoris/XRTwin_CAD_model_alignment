@@ -30,6 +30,12 @@ import h5_files.h5_writer as w
 import h5_files.file_reader as r
 import numpy as np
 
+"""
+=============================================================================
+------------------------------------MAIN-------------------------------------
+=============================================================================
+"""
+
 def main(file_name, corr_angle, axis, corr_angle2=0, axis2=0):
     
     # Appending arrays to h5 file, source: https://stackoverflow.com/a/47074545
