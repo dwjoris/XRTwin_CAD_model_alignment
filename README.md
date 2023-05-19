@@ -12,6 +12,8 @@ This repository is part of a project on XR environments. The goal is to compare 
 
 The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 dataset.
 
+Training datasets for PointNetLK, RPMNet, ROPNet and PRNet can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC)
+
 # Current Progress (Update 21/04/2023)
 - [x] Installation of considered registration methods
 - [x] Creation of code infrastructure to test & train methods
