@@ -29,10 +29,10 @@ The __test__ and __train__ folders contain the individual codes to test and trai
 The **datasets** folder stores the different used CAD models for the templates.
 
 **h5_files** contains functions to process the data and create the correct .hdf5 files, as well as the input files used for the experiments, raw point clouds and result files.
-- _output_ contains the outputs of the different functions./
+- _output_ contains the outputs of the different functions.
   - _experiments_ holds the input .hdf5 files, used during the experiments.
   - _processing_results_ contains the results of processing the raw point clouds as .txt files.   
-  - _results_ contains the results, for every PCR method, for every object and all scans of the experiments./
+  - _results_ contains the results, for every PCR method, for every object and all scans of the experiments.
 - _realsense_ contains the raw, captured point clouds with the RealSense D435i camera, as well as the ground truth parameters for every scan.
 
 Inside the **misc** folder functions are added to compute errors, visualise the results, load the data etc.
