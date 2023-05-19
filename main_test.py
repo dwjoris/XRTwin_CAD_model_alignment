@@ -18,6 +18,16 @@ Inputs:
 Output:
     - array file with computation times
     - .hdf5 files with estimated transformation
+
+Credits: 
+    PointNetLK, RPMNet, ROPNet & PRNet Code by vinits5 as part of the Learning3D library 
+    Link: https://github.com/vinits5/learning3d#use-your-own-data
+    
+    RANSAC, FGR as part of the Open3D library
+    
+    GO-ICP Code by aalavandhaann
+    Link: https://github.com/aalavandhaann/go-icp_cython
+
 """
 
 """
