@@ -1,13 +1,27 @@
 """
-==================================================================================================
-ADDED:
+=============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
 
-    * possibility to use own datasets (UserData)
-    * calculation of general metrics
-    * time measurements for different sections
-    * removed unused imports/variables
 
-==================================================================================================
+
+test PRNet OwnData
+
+Run PRNet, with given parameters, for given .h5 file
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+
+Output:
+    - .hdf5 file with estimated transformation
+
+Credits: 
+    PRNet Code by vinits5 as part of the Learning3D library 
+    Link: https://github.com/vinits5/learning3d#use-your-own-data
+
 """
 
 """

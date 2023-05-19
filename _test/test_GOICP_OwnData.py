@@ -1,14 +1,29 @@
 """
 =============================================================================
------------------------------------CREDITS-----------------------------------
+-------------------------------------INFO------------------------------------
 =============================================================================
 
-GO-ICP Code by aalavandhaann
-Link: https://github.com/aalavandhaann/go-icp_cython
 
-Changes/additions by Menthy Denayer (2023)
+
+test GO-ICP OwnData
+
+Run GO-ICP, with given parameters, for given .h5 file
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+
+Output:
+    - .hdf5 file with estimated transformation
+
+Credits: 
+    GO-ICP Code by aalavandhaann
+    Link: https://github.com/aalavandhaann/go-icp_cython
 
 """
+
 
 """
 =============================================================================

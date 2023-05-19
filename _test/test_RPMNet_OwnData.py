@@ -1,12 +1,26 @@
 """
 =============================================================================
------------------------------------CREDITS-----------------------------------
+-------------------------------------INFO------------------------------------
 =============================================================================
 
-RPMNet Code by vinits5 as part of the Learning3D library 
-Link: https://github.com/vinits5/learning3d#use-your-own-data
 
-Changes/additions by Menthy Denayer (2023)
+
+test RPMNet OwnData
+
+Run RPMNet, with given parameters, for given .h5 file
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+
+Output:
+    - .hdf5 file with estimated transformation
+
+Credits: 
+    RPMNet Code by vinits5 as part of the Learning3D library 
+    Link: https://github.com/vinits5/learning3d#use-your-own-data
 
 """
 

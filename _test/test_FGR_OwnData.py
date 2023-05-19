@@ -1,5 +1,30 @@
 """
 =============================================================================
+-------------------------------------INFO------------------------------------
+=============================================================================
+
+
+
+test FGR OwnData
+
+Run FGR, with given parameters, for given .h5 file
+
+Inputs:
+    - .hdf5 files containing:
+        o Template (w/ normals)
+        o Source   (w/ normals)
+        o Ground Truth
+
+Output:
+    - .hdf5 file with estimated transformation
+
+Credits: 
+    FGR as part of the Open3D library
+
+"""
+
+"""
+=============================================================================
 -----------------------------------IMPORTS-----------------------------------
 =============================================================================
 """
@@ -83,6 +108,8 @@ def execute_fast_global_registration(source_down, target_down, source_fpfh,
 
 def test_one_epoch(test_loader, voxel_size, DIR):
     count = 0
+    
+    # Loop over scans
     for i, data in enumerate(test_loader):
         template_, source_, igt_ = data
     
