@@ -12,6 +12,16 @@ This repository is part of a project on XR environments. The goal is to compare 
 
 The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 dataset.
 
+Training datasets for PointNetLK, RPMNet, ROPNet and PRNet can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC)
+
+# Documentation
+The .main files allow to execute the experiments performed. 
+- main_preprocess is used to process the raw point clouds and create the required input files (.hdf5)
+- main_train can be used to train the different PCR methods
+- main_test performs the registration for the selected PCR method, for every object, for all scans
+- main_optimize allows to perform the registration, for a selected PCR method and object, with varying voxel sizes
+- main_errors computes the errors based on the found transformations, stored in the .hdf5 result files
+
 # Current Progress (Update 21/04/2023)
 - [x] Installation of considered registration methods
 - [x] Creation of code infrastructure to test & train methods
