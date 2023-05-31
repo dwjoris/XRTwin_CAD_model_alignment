@@ -12,7 +12,9 @@ This repository is part of a project on XR environments. The goal is to compare 
 
 The functions are tested on the Cranfield Benchmark dataset and the ModelNet40 dataset.
 
-Training datasets for PointNetLK, RPMNet, ROPNet and PRNet can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC)
+Training datasets for PointNetLK, RPMNet, ROPNet and PRNet can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC).
+
+Results data, used to create graphs, can be found [here](https://vub-my.sharepoint.com/:f:/g/personal/menthy_denayer_vub_be/EgztyhoVz5JLianKSp7KcxEBhoGzQ2AWnmX_uOmPsXBKbQ?e=U3EBTC).
 
 # Documentation
 The __main__ files allow to execute the experiments performed. 
@@ -26,16 +28,16 @@ The __settings.json__ file contains the used settings of the D435i camera.
 
 The __test__ and __train__ folders contain the individual codes to test and train the PCR methods.
 
-The **datasets** folder stores the different used CAD models for the templates.
+The __datasets__ folder stores the different used CAD models for the templates.
 
-**h5_files** contains functions to process the data and create the correct .hdf5 files, as well as the input files used for the experiments, raw point clouds and result files.
+__h5_files__ contains functions to process the data and create the correct .hdf5 files, as well as the input files used for the experiments, raw point clouds and result files.
 - _output_ contains the outputs of the different functions.
   - _experiments_ holds the input .hdf5 files, used during the experiments.
   - _processing_results_ contains the results of processing the raw point clouds as .txt files.   
   - _results_ contains the results, for every PCR method, for every object and all scans of the experiments.
 - _realsense_ contains the raw, captured point clouds with the RealSense D435i camera, as well as the ground truth parameters for every scan.
 
-Inside the **misc** folder functions are added to compute errors, visualise the results, load the data etc.
+Inside the __misc__ folder functions are added to compute errors, visualise the results, load the data etc.
 
 # Current Progress (Update 21/04/2023)
 - [x] Installation of considered registration methods
